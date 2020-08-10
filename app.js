@@ -29,17 +29,17 @@ app.get('/', function (req, res) {
     res.render('welcome');
 });
 
-app.get('/register', function(req, res) {
+app.get('/register', function (req, res) {
     res.render('register');
 });
 
-app.get('/login', function(req, res) {
+app.get('/login', function (req, res) {
     res.render('login');
 });
 
 app.post('/register', function (req, res) {
-    bcrypt.hash(req.body.password, 10, function(hashErr, hash) {
-        if(!hashErr) {
+    bcrypt.hash(req.body.password, 10, function (hashErr, hash) {
+        if (!hashErr) {
             User.create({
                 email: req.body.email,
                 password: hash,
@@ -55,15 +55,17 @@ app.post('/register', function (req, res) {
             res.send("Error: " + hashErr);
         }
     })
-    
+
 });
 
-app.post('/login', function(req, res){
-    User.findOne({email: req.body.email}, function (findErr, doc) {
-        if(!findErr) {
-            if(doc) {
-                bcrypt.compare(req.body.password, doc.password, function(compareErr, same) {
-                    if(!compareErr) {
+app.post('/login', function (req, res) {
+    User.findOne({
+        email: req.body.email
+    }, function (findErr, doc) {
+        if (!findErr) {
+            if (doc) {
+                bcrypt.compare(req.body.password, doc.password, function (compareErr, same) {
+                    if (!compareErr) {
                         same ? res.send('Logging in') : res.send('Invalid email/password combo');
                     } else {
                         res.send('Internal error: ' + compareErr);
