@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/akshatadsule/lokal/issues"
   },
-  "homepage": "https://github.com/akshatadsule/lokal#readme"
+  "homepage": "https://github.com/akshatadsule/lokal#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
