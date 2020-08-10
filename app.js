@@ -1,9 +1,9 @@
-require('dotenv').config()
+require('dotenv').config();
+require('ejs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-require('ejs');
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -22,8 +22,14 @@ const userSchema = mongoose.Schema({
     password: String,
     zipCode: Number
 });
-
 const User = mongoose.model('user', userSchema);
+
+const postSchema = mongoose.Schema({
+    title: String,
+    content: String,
+    author: String
+});
+const Post = mongoose.model('post', postSchema);
 
 app.get('/', function (req, res) {
     res.render('welcome');
