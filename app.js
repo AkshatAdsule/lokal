@@ -32,7 +32,7 @@ app.get('/', function (req, res) {
 
 app.post('register', function (req, res) {
     bcrypt.hash(req.body.password, 10, function(hashErr, hash) {
-        if(!err) {
+        if(!hashErr) {
             User.create({
                 email: req.body.email,
                 password: hash,
