@@ -38,7 +38,7 @@ app.get('/login', function(req, res) {
     res.render('login');
 });
 
-app.post('register', function (req, res) {
+app.post('/register', function (req, res) {
     bcrypt.hash(req.body.password, 10, function(hashErr, hash) {
         if(!hashErr) {
             User.create({
