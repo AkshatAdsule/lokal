@@ -31,18 +31,24 @@ app.get('/', function (req, res) {
 });
 
 app.post('register', function (req, res) {
-    const newUser = {
-        email: req.body.email,
-        password: req.body.password,
-        zipCode: req.body.zipCode
-    }
-    User.create(newUser, function (err) {
-        if (!err) {
-            res.redirect('/');
+    bcrypt.hash(req.body.password, 10, function(hashErr, hash) {
+        if(!err) {
+            User.create({
+                email: req.body.email,
+                password: hash,
+                zipCode: req.body.zipCode
+            }, function (createErr) {
+                if (!createErr) {
+                    res.redirect('/');
+                } else {
+                    res.send("Error: " + createErr);
+                }
+            });
         } else {
-            res.send("Error: " + err);
+            res.send("Error: " + hashErr);
         }
     })
+    
 });
 
 app.listen(7000, function () {
