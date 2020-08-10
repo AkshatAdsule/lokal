@@ -127,3 +127,8 @@ body {
 .main-logo {
     width: 100px;
 }
+
+.form-div bg-light{
+  text-align: center;
+  align-content: center;
+}
