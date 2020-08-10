@@ -13,7 +13,10 @@ app.use(bodyParser.urlencoded({
 
 //akshat key: Zqz3AGKJw5iZAoft
 
-mongoose.connect('mongodb+srv://akshat:Zqz3AGKJw5iZAoft@lokal.etj61.gcp.mongodb.net/lokal?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://akshat:Zqz3AGKJw5iZAoft@lokal.etj61.gcp.mongodb.net/lokal?retryWrites=true&w=majority', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
 
 const userSchema = mongoose.Schema({
     email: String,
@@ -27,14 +30,14 @@ app.get('/', function (req, res) {
     res.render('welcome');
 });
 
-app.post('register', function(req, res) {
+app.post('register', function (req, res) {
     const newUser = {
         email: req.body.email,
         password: req.body.password,
         zipCode: req.body.zipCode
     }
-    User.create(newUser, function(err) {
-        if(!err) {
+    User.create(newUser, function (err) {
+        if (!err) {
             res.redirect('/');
         } else {
             res.send("Error: " + err);
