@@ -38,7 +38,7 @@ app.get('/login', function(req, res) {
     res.render('login');
 });
 
-app.post('register', function (req, res) {
+app.post('/register', function (req, res) {
     bcrypt.hash(req.body.password, 10, function(hashErr, hash) {
         if(!hashErr) {
             User.create({
@@ -57,6 +57,26 @@ app.post('register', function (req, res) {
         }
     })
     
+});
+
+app.post('/login', function(req, res){
+    User.findOne({email: req.body.email}, function (findErr, doc) {
+        if(!findErr) {
+            if(doc) {
+                bcrypt.compare(req.body.password, doc.password, function(compareErr, same) {
+                    if(!compareErr) {
+                        same ? res.send('Logging in') : res.send('Invalid email/password combo');
+                    } else {
+                        res.send('Internal error: ' + compareErr);
+                    }
+                })
+            } else {
+                res.send('Invalid email');
+            }
+        } else {
+            res.send('Internal error: ' + findErr)
+        }
+    });
 });
 
 app.listen(7000, function () {
