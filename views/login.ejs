@@ -4,19 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
     <title>Login</title>
 </head>
 <body>
-    <div class="form-div bg-light">
-        <h3 class="form-heading">Login</h3>
-        <form action="/login" method="POST" style="width: 75%;">
-            <label for="email">Username/Email</label><br>
-            <input type="email" class="form-control" name="username"><br>
-            <label for="password">Password</label><br>
-            <input type="password" class="form-control" name="password">
-            <input type="submit" value="Login" class="btn btn-dark">
-        </form>
+    <div class="form-login">
+        <div class="form">
+            <form action="/login" method="POST">
+                <h3 class="form-heading">Login</h3>
+                <label for="email">Username/Email</label><br>
+                <input type="email" class="form-control" name="username"><br>
+                <label for="password">Password</label><br>
+                <input type="password" class="form-control" name="password"><br>
+                <input type="submit" value="Login" class="btn btn-dark">
+            </form>
+        </div>
     </div>
 </body>
 </html>

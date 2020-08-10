@@ -114,7 +114,24 @@ body {
   padding: .75rem 1.25rem;
   font-weight: 700;
 }
+/*
+  * Forms
+  */
+.form-register {
+  text-align: center; 
+  align-content: center; 
+  width: 70%; 
+  padding-left: 30%; 
+  padding-top: 15%;
+}
 
+.form-login {
+    text-align: center; 
+    align-content: center; 
+    width: 70%; 
+    padding-left: 30%; 
+    padding-top: 15%;
+}
 
 /*
  * Footer
@@ -126,11 +143,4 @@ body {
 
 .main-logo {
     width: 100px;
-}
-
-.form-div bg-light{
-  text-align: center;
-  align-content: center;
-  padding-left: 40%;
-  padding-top: 40%;
 }
