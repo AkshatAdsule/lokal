@@ -11,8 +11,6 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-//akshat key: Zqz3AGKJw5iZAoft
-
 mongoose.connect('mongodb+srv://akshat:Zqz3AGKJw5iZAoft@lokal.etj61.gcp.mongodb.net/lokal?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true
