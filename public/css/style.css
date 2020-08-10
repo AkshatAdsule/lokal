@@ -117,20 +117,24 @@ body {
 /*
   * Forms
   */
+
+.form {
+  text-align: center;
+  margin-bottom: 25%;
+}
 .form-register {
   text-align: center; 
   align-content: center; 
-  width: 70%; 
-  padding-left: 30%; 
-  padding-top: 15%;
 }
 
 .form-login {
     text-align: center; 
     align-content: center; 
-    width: 70%; 
-    padding-left: 30%; 
-    padding-top: 15%;
+}
+
+.form-heading {
+  font-weight: 900;
+  font-size: 40px;
 }
 
 /*
