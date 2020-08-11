@@ -1,22 +1,22 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
     <link rel="manifest" href="favicon/site.webmanifest">
+
     <link
         href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link href="/css/style.css" rel="stylesheet">
-    <title>lokal</title>
+    <link rel="stylesheet" href="css/style.css">
+    <title>New Post</title>
 </head>
 
 <body class="text-center">
@@ -25,27 +25,27 @@
             <div class="inner">
                 <h3 class="masthead-brand logo-text">lokal</h3>
                 <nav class="nav nav-masthead justify-content-center">
-                    <a class="nav-link active" href="/home">Home</a>
-                    <a class="nav-link" href="/post">Post</a>
+                    <a class="nav-link" href="/home">Home</a>
+                    <a class="nav-link active" href="/post">Post</a>
                     <a class="nav-link" href="/logout">Logout</a>
                 </nav>
             </div>
         </header>
 
-        <% posts.forEach(post => { %>
-        <main role="main" class="feed">
-            <h1 class="cover-heading feed-title"><%= post.title %></h1>
-            <p class="lead feed-body"><%= post.body %> <a class="feed-postlink" href="/home/<%= post.postLink %>">read more...</a></p>
-            <p class="feed-author"><%= post.author %></p>
-        </main>
-        <% }) %>
-
-
-        <footer class="mastfoot mt-auto">
-            <div class="inner">
-                <p>Created by <a href="https://www.github.com/akshatadsule">Akshat</a> and <a href="https://www.github.com/mahanthmohan">Mahanth</a>.</p>
+        <main role="main" class="inner-cover">
+            <div class="form lead">
+                <form action="/post" method="POST">
+                    <h3 class="form-heading lead">New Post</h3><br>
+                    <br>
+                    <input class="form-control" type="text" name="title" id="title" placeholder="Title of post">
+                    <br>
+                    <textarea class="form-control" rows="5" name="body" placeholder="Body of post"></textarea>
+                    <br>
+                    <button type="submit" class="btn btn-lg btn-dark">Post</button>
+                </form>
             </div>
-        </footer>
+            <a href="feed" style="font-size: medium;">Want to see others' posts?</a>
+        </main>
     </div>
 </body>
 
