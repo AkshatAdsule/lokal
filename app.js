@@ -43,6 +43,14 @@ app.get('/login', function (req, res) {
     res.render('login');
 });
 
+app.get('/post', function (req, res) {
+    res.render('post');
+});
+
+app.get('/feed', function (req, res) {
+    res.render('feed');
+});
+
 app.post('/register', function (req, res) {
     bcrypt.hash(req.body.password, 10, function (hashErr, hash) {
         if (!hashErr) {
@@ -72,7 +80,7 @@ app.post('/login', function (req, res) {
             if (doc) {
                 bcrypt.compare(req.body.password, doc.password, function (compareErr, same) {
                     if (!compareErr) {
-                        same ? res.send('Logging in') : res.send('Invalid email/password combo');
+                        same ? res.render('post') : res.send('Invalid email/password combo');
                     } else {
                         res.send('Internal error: ' + compareErr);
                     }

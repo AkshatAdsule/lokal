@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -16,35 +16,30 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
-    <title>Login</title>
+    <title>New Post</title>
 </head>
 
-<body>
+<body class="text-center">
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="masthead mb-auto">
             <div class="inner">
                 <h3 class="masthead-brand logo-text">lokal</h3>
                 <nav class="nav nav-masthead justify-content-center">
-                    <a class="nav-link" href="/">About</a>
-                    <a class="nav-link active" href="#">Log in</a>
-                    <a class="nav-link" href="/register">Register</a>
+                    <a class="nav-link active" href="#">About</a>
+                    <a class="nav-link" href="login">Log in</a>
+                    <a class="nav-link" href="register">Register</a>
                 </nav>
             </div>
         </header>
 
-        <main class="inner cover">
-            <div class="form-login">
-                <div class="form lead">
-                    <form action="/login" method="POST">
-                        <h3 class="form-heading lead">Login</h3>
-                        <label for="email">Username/Email</label><br>
-                        <input type="email" class="form-control lead" name="email"><br>
-                        <label for="password">Password</label><br>
-                        <input type="password" class="form-control lead" name="password"><br>
-                        <input type="submit" value="Login" class="btn btn-dark"><br>
-                        <a href="register" style="font-size: medium;">Don't have an account?</a>
-                    </form>
-                </div>
+        <main role="main" class="inner-cover">
+            <div class="form lead">
+                <form action="/post" method="POST">
+                    <h3 class="form-heading lead">New Post</h3><br>
+                    <label for="new-post">You can post something here</label><br>
+                    <textarea class="form-control" rows="5" id="new-post"></textarea><br>
+                    <a href="feed" style="font-size: medium;">Want to see others' posts?</a>
+                </form>
             </div>
         </main>
     </div>
