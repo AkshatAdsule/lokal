@@ -46,10 +46,26 @@ app.get('/', function (req, res) {
 
 app.get('/register', function (req, res) {
     res.render('register');
+    function validateForm() {
+        if(req.body.email || req.body.password || req.body.zipCode == "") {
+            alert("All the registration fields must be filled out")
+            res.render('register')
+        } else {
+            res.render('register')
+        }
+    }    
 });
 
 app.get('/login', function (req, res) {
-    res.render('login');
+    res.render('login')
+    function validateForm() {
+        if (req.body.email || req.body.password == "") {
+            alert("All the login fields must be filled out")
+            res.render('login')
+        } else {
+            res.render('login')
+        }
+    }
 });
 
 app.get('/logout', function (req, res) {

@@ -35,7 +35,7 @@
         <main class="inner cover">
             <div class="form-login">
                 <div class="form lead">
-                    <form action="/login" method="POST">
+                    <form action="/login" method="POST" onsubmit="return validateForm()">
                         <h3 class="form-heading lead">Login</h3>
                         <label for="email">Username/Email</label><br>
                         <input type="email" class="form-control lead" name="email"><br>
