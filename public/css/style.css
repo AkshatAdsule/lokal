@@ -117,20 +117,24 @@ body {
 /*
   * Forms
   */
+
+.form {
+  text-align: center;
+  margin-bottom: 50%;
+}
 .form-register {
   text-align: center; 
   align-content: center; 
-  width: 70%; 
-  padding-left: 30%; 
-  padding-top: 15%;
 }
 
 .form-login {
     text-align: center; 
     align-content: center; 
-    width: 70%; 
-    padding-left: 30%; 
-    padding-top: 15%;
+}
+
+.form-heading {
+  font-weight: 900;
+  font-size: 40px;
 }
 
 /*
@@ -140,7 +144,28 @@ body {
   color: rgba(0, 0, 0, 0.5);
 }
 
-
 .main-logo {
     width: 100px;
+}
+
+.post{
+  display: block;
+}
+
+/* feed */
+
+.feed {
+  text-align: left;
+  justify-content: left;
+  margin-top: 25px;
+}
+
+.feed-title{
+  font-weight: 700;
+}
+
+.feed-author {
+  font-size: 12;
+  font-weight: 100;
+  font-style: italic;
 }
