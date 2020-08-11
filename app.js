@@ -59,16 +59,22 @@ app.get('/logout', function (req, res) {
 });
 
 app.get('/post', function (req, res) {
-    if (req.session.userName) {
+    if (req.session.userName && req.session.zipCode) {
         res.render('post');
     } else {
         res.redirect('/');
     }
 });
 
-app.get('/feed', function (req, res) {
-    if (req.session.userName) {
-        res.send('Logged in as ' + req.session.userName);
+app.get('/home', function (req, res) {
+    if (req.session.userName && req.session.zipCode) {
+        Post.find({zipCode: req.session.zipCode}, function (err, posts) {
+            if(!err) {
+                res.render('feed', {posts: posts});
+            } else {
+                res.send('Internal Error: ' + err);
+            }
+        })
     } else {
         res.redirect('/');
     }
@@ -108,7 +114,7 @@ app.post('/login', function (req, res) {
                         if (same) {
                             req.session.userName = doc.email;
                             req.session.zipCode = doc.zipCode;
-                            res.redirect('/feed');
+                            res.redirect('/home');
                         } else {
                             res.send('Invalid email/password combo');
                         }
@@ -136,7 +142,7 @@ app.post('/post', function(req, res) {
             zipCode: req.session.zipCode
         }, function(createErr) {
             if(!createErr) {
-                res.redirect('/feed')
+                res.redirect('/home')
             } else {
                 res.send("Internal error:" + createErr);
             }
