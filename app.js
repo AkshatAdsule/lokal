@@ -167,6 +167,6 @@ app.post('/post', function (req, res) {
     }
 })
 
-app.listen(7000, function () {
+app.listen(7000 || process.env.PORT, function () {
     console.log('app is running on 7000.');
 });
