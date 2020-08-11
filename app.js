@@ -7,19 +7,7 @@ const bcrypt = require('bcrypt');
 const session = require('express-session');
 const cookieParser = require('cookie-parser')
 const _ = require('lodash');
-
-const app = express();
-app.set('view engine', 'ejs');
-app.use(express.static('public'));
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
-app.use(cookieParser())
-app.use(session({
-    secret: process.env.COOKIE_SECRET,
-    resave: false,
-    saveUninitialized: false
-}));
+const MongoStore = require('connect-mongo')(session);
 
 mongoose.connect(process.env.ATLAS_URI, {
     useNewUrlParser: true,
@@ -41,6 +29,22 @@ const postSchema = mongoose.Schema({
     postLink: String
 });
 const Post = mongoose.model('post', postSchema);
+
+const app = express();
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(cookieParser())
+app.use(session({
+    secret: process.env.COOKIE_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
+}));
+
+
 
 app.get('/', function (req, res) {
     res.render('welcome');
