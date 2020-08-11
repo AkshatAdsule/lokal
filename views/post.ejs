@@ -36,11 +36,15 @@
             <div class="form lead">
                 <form action="/post" method="POST">
                     <h3 class="form-heading lead">New Post</h3><br>
-                    <label for="new-post">You can post something here</label><br>
-                    <textarea class="form-control" rows="5" id="new-post"></textarea><br>
-                    <a href="feed" style="font-size: medium;">Want to see others' posts?</a>
+                    <br>
+                    <input class="form-control" type="text" name="title" id="title" placeholder="Title of post">
+                    <br>
+                    <textarea class="form-control" rows="5" name="body" placeholder="Body of post"></textarea>
+                    <br>
+                    <button type="submit" class="btn btn-lg btn-dark">Post</button>
                 </form>
             </div>
+            <a href="feed" style="font-size: medium;">Want to see others' posts?</a>
         </main>
     </div>
 </body>

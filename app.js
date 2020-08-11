@@ -34,8 +34,9 @@ const User = mongoose.model('user', userSchema);
 
 const postSchema = mongoose.Schema({
     title: String,
-    content: String,
-    author: String
+    body: String,
+    author: String,
+    zipCode: Number
 });
 const Post = mongoose.model('post', postSchema);
 
@@ -53,11 +54,16 @@ app.get('/login', function (req, res) {
 
 app.get('/logout', function (req, res) {
     req.session.userName = null;
+    req.session.zipCode = null;
     res.redirect('/');
 });
 
 app.get('/post', function (req, res) {
-    res.render('post');
+    if (req.session.userName) {
+        res.render('post');
+    } else {
+        res.redirect('/');
+    }
 });
 
 app.get('/feed', function (req, res) {
@@ -75,8 +81,10 @@ app.post('/register', function (req, res) {
                 email: req.body.email,
                 password: hash,
                 zipCode: req.body.zipCode
-            }, function (createErr) {
+            }, function (createErr, doc) {
                 if (!createErr) {
+                    req.session.userName = req.body.email;
+                    req.session.zipCode = req.body.zipCode;
                     res.redirect('/');
                 } else {
                     res.send("Error: " + createErr);
@@ -99,6 +107,7 @@ app.post('/login', function (req, res) {
                     if (!compareErr) {
                         if (same) {
                             req.session.userName = doc.email;
+                            req.session.zipCode = doc.zipCode;
                             res.redirect('/feed');
                         } else {
                             res.send('Invalid email/password combo');
@@ -115,6 +124,25 @@ app.post('/login', function (req, res) {
         }
     });
 });
+
+app.post('/post', function(req, res) {
+    let title = req.body.title;
+    let body = req.body.body;
+    if(title && body && req.session.userName && req.session.zipCode) {
+        Post.create({
+            title: title,
+            body: body,
+            author: req.session.userName,
+            zipCode: req.session.zipCode
+        }, function(createErr) {
+            if(!createErr) {
+                res.redirect('/feed')
+            } else {
+                res.send("Internal error:" + createErr);
+            }
+        })
+    }
+})
 
 app.listen(7000, function () {
     console.log('app is running on 7000.');

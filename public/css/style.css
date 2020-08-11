@@ -144,7 +144,10 @@ body {
   color: rgba(0, 0, 0, 0.5);
 }
 
-
 .main-logo {
     width: 100px;
+}
+
+.post{
+  display: block;
 }
