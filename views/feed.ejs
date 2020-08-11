@@ -15,7 +15,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
     <title>lokal</title>
 </head>
 
@@ -35,7 +35,7 @@
         <% posts.forEach(post => { %>
         <main role="main" class="feed">
             <h1 class="cover-heading feed-title"><%= post.title %></h1>
-            <p class="lead feed-body"><%= post.body %></p>
+            <p class="lead feed-body"><%= post.body.length >= 50 ? post.body.substring(0, 50) : post.body %> <a class="feed-postlink" href="/home/<%= post.postLink %>">read more...</a></p>
             <p class="feed-author"><%= post.author %></p>
         </main>
         <% }) %>
