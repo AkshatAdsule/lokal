@@ -44,11 +44,19 @@ app.get('/', function (req, res) {
 });
 
 app.get('/register', function (req, res) {
-    res.render('register');
+    if (req.body.email || req.body.password || req.body.zipCode) {
+        res.render('register');
+    } else {
+        res.send("Enter a valid credential, one that is not empty")      
+    }
 });
 
 app.get('/login', function (req, res) {
-    res.render('login');
+    if (req.body.email.length || req.body.password.length) {
+        res.render('login')
+    } else {
+        res.send("Enter a valid credential, one that is not empty")
+    };
 });
 
 app.get('/logout', function (req, res) {
