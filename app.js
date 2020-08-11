@@ -29,8 +29,7 @@ mongoose.connect(process.env.ATLAS_URI, {
 const userSchema = mongoose.Schema({
     email: String,
     password: String,
-    zipCode: Number,
-    userLink: String
+    zipCode: Number
 });
 const User = mongoose.model('user', userSchema);
 
@@ -104,7 +103,6 @@ app.post('/register', function (req, res) {
                 email: req.body.email,
                 password: hash,
                 zipCode: req.body.zipCode,
-                userLink: _.camelCase(email)
             }, function (createErr, doc) {
                 if (!createErr) {
                     req.session.userName = req.body.email;
