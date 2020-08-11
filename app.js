@@ -58,14 +58,6 @@ app.get('/register', function (req, res) {
 
 app.get('/login', function (req, res) {
     res.render('login')
-    function validateForm() {
-        if (req.body.email || req.body.password == "") {
-            alert("All the login fields must be filled out")
-            res.render('login')
-        } else {
-            res.render('login')
-        }
-    }
 });
 
 app.get('/logout', function (req, res) {
@@ -97,54 +89,61 @@ app.get('/home', function (req, res) {
 });
 
 app.post('/register', function (req, res) {
-    bcrypt.hash(req.body.password, 10, function (hashErr, hash) {
-        if (!hashErr) {
-            User.create({
-                email: req.body.email,
-                password: hash,
-                zipCode: req.body.zipCode
-            }, function (createErr, doc) {
-                if (!createErr) {
-                    req.session.userName = req.body.email;
-                    req.session.zipCode = req.body.zipCode;
-                    res.redirect('/');
-                } else {
-                    res.send("Error: " + createErr);
-                }
-            });
-        } else {
-            res.send("Error: " + hashErr);
-        }
-    })
+    if(req.body.email && req.body.password && req.body.zipCode) {
+        bcrypt.hash(req.body.password, 10, function (hashErr, hash) {
+            if (!hashErr) {
+                User.create({
+                    email: req.body.email,
+                    password: hash,
+                    zipCode: req.body.zipCode
+                }, function (createErr, doc) {
+                    if (!createErr) {
+                        req.session.userName = req.body.email;
+                        req.session.zipCode = req.body.zipCode;
+                        res.redirect('/');
+                    } else {
+                        res.send("Error: " + createErr);
+                    }
+                });
+            } else {
+                res.send("Error: " + hashErr);
+            }
+        });
+    } else {
+        res.redirect('/register');
+    }
+    
 
 });
 
 app.post('/login', function (req, res) {
-    User.findOne({
-        email: req.body.email
-    }, function (findErr, doc) {
-        if (!findErr) {
-            if (doc) {
-                bcrypt.compare(req.body.password, doc.password, function (compareErr, same) {
-                    if (!compareErr) {
-                        if (same) {
-                            req.session.userName = doc.email;
-                            req.session.zipCode = doc.zipCode;
-                            res.redirect('/home');
+    if(req.body.email && req.body.password && req.body.zipCode) {
+        User.findOne({
+            email: req.body.email
+        }, function (findErr, doc) {
+            if (!findErr) {
+                if (doc) {
+                    bcrypt.compare(req.body.password, doc.password, function (compareErr, same) {
+                        if (!compareErr) {
+                            if (same) {
+                                req.session.userName = doc.email;
+                                req.session.zipCode = doc.zipCode;
+                                res.redirect('/home');
+                            } else {
+                                res.send('Invalid email/password combo');
+                            }
                         } else {
-                            res.send('Invalid email/password combo');
+                            res.send('Internal error: ' + compareErr);
                         }
-                    } else {
-                        res.send('Internal error: ' + compareErr);
-                    }
-                })
+                    })
+                } else {
+                    res.send('Invalid email');
+                }
             } else {
-                res.send('Invalid email');
+                res.send('Internal error: ' + findErr)
             }
-        } else {
-            res.send('Internal error: ' + findErr)
-        }
-    });
+        });
+    }
 });
 
 app.post('/post', function(req, res) {
