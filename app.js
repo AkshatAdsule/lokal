@@ -13,21 +13,51 @@ mongoose.connect(process.env.ATLAS_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
+mongoose.set('useCreateIndex', true);
 
 const userSchema = mongoose.Schema({
-    email: String,
-    password: String,
-    zipCode: Number
-    //TODO Add username field to protect user's emails
+    email: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    zipCode: {
+        type: Number,
+        required: true
+    },
+    username: {
+        type: String,
+        required: true
+    }
 });
 const User = mongoose.model('user', userSchema);
 
 const postSchema = mongoose.Schema({
-    title: String,
-    body: String,
-    author: String,
-    zipCode: Number,
-    postLink: String
+    title: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    body: {
+        type: String,
+        required: true
+    },
+    author: {
+        type: String,
+        required: true
+    },
+    zipCode: {
+        type: Number,
+        required: true
+    },
+    postLink: {
+        type: String,
+        required: true
+    }
 });
 const Post = mongoose.model('post', postSchema);
 
@@ -61,18 +91,18 @@ app.get('/login', function (req, res) {
     res.render('login')
 });
 
-app.get('/_info', function(req, res) {
-    res.send(req.session.userName + '\n' +  req.session.zipCode)
+app.get('/_info', function (req, res) {
+    res.send(req.session.email + '\n' + req.session.zipCode + '\n' + req.session.username);
 })
 
 app.get('/logout', function (req, res) {
-    req.session.userName = null;
+    req.session.email = null;
     req.session.zipCode = null;
     res.redirect('/');
 });
 
 app.get('/post', function (req, res) {
-    if (req.session.userName && req.session.zipCode) {
+    if (req.session.email && req.session.zipCode) {
         res.render('create');
     } else {
         res.redirect('/');
@@ -96,12 +126,12 @@ app.get('/home/:postName', function (req, res) {
 
 app.get('/users/:user', function (req, res) {
     User.findOne({
-        email: req.params.user,
+        username: req.params.user,
         zipCode: req.session.zipCode
     }, function (findUserErr, user) {
         if (!findUserErr && user) {
             Post.find({
-                author: user.email
+                author: user.username
             }, function (findPostsErr, posts) {
                 if (!findPostsErr) {
                     console.log(posts);
@@ -120,7 +150,7 @@ app.get('/users/:user', function (req, res) {
 })
 
 app.get('/home', function (req, res) {
-    if (req.session.userName && req.session.zipCode) {
+    if (req.session.email && req.session.zipCode) {
         Post.find({
             zipCode: req.session.zipCode
         }, function (err, posts) {
@@ -142,12 +172,14 @@ app.post('/register', function (req, res) {
         if (!hashErr) {
             User.create({
                 email: req.body.email,
-                password: hash,
+                username: req.body.username,
                 zipCode: req.body.zipCode,
+                password: hash
             }, function (createErr) {
                 if (!createErr) {
-                    req.session.userName = req.body.email;
+                    req.session.email = req.body.email;
                     req.session.zipCode = req.body.zipCode;
+                    req.session.username = req.body.username;
                     res.redirect('/home');
                 } else {
                     res.send("Error: " + createErr);
@@ -169,8 +201,9 @@ app.post('/login', function (req, res) {
                 bcrypt.compare(req.body.password, doc.password, function (compareErr, same) {
                     if (!compareErr) {
                         if (same) {
-                            req.session.userName = doc.email;
+                            req.session.email = doc.email;
                             req.session.zipCode = doc.zipCode;
+                            req.session.username = doc.username;
                             res.redirect('/home');
                         } else {
                             res.send('Invalid email/password combo');
@@ -191,11 +224,11 @@ app.post('/login', function (req, res) {
 app.post('/post', function (req, res) {
     let title = req.body.title;
     let body = req.body.body;
-    if (title && body && req.session.userName && req.session.zipCode) {
+    if (title && body && req.session.email && req.session.zipCode) {
         Post.create({
             title: title,
             body: body,
-            author: req.session.userName,
+            author: req.session.username,
             zipCode: req.session.zipCode,
             postLink: _.kebabCase(title)
         }, function (createErr) {
