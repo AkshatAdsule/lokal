@@ -1,2 +1,1 @@
-TODO use /:user/:post instead of /home/:post
 TODO add error handeling on user creation and post creation
