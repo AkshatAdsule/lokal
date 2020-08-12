@@ -1,1 +1,0 @@
-TODO add error handeling on user creation and post creation
