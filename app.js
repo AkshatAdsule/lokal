@@ -41,7 +41,9 @@ app.use(session({
     secret: process.env.COOKIE_SECRET,
     resave: false,
     saveUninitialized: false,
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
+    store: new MongoStore({
+        mongooseConnection: mongoose.connection
+    })
 }));
 
 
@@ -58,6 +60,10 @@ app.get('/login', function (req, res) {
     res.render('login')
 });
 
+app.get('/_info', function(req, res) {
+    res.send(req.session.userName + '\n' +  req.session.zipCode)
+})
+
 app.get('/logout', function (req, res) {
     req.session.userName = null;
     req.session.zipCode = null;
@@ -72,15 +78,43 @@ app.get('/post', function (req, res) {
     }
 });
 
-app.get('/home/:postName', function(req, res) {
-    Post.findOne({postLink: req.params.postName}, function(err, post) {
-        if(!err && post) {
-            res.render('post', {post: post})
+app.get('/home/:postName', function (req, res) {
+    Post.findOne({
+        postLink: req.params.postName
+    }, function (err, post) {
+        if (!err && post) {
+            res.render('post', {
+                post: post
+            })
         } else {
             res.redirect('/home');
         }
     })
 });
+
+app.get('/users/:user', function (req, res) {
+    User.findOne({
+        email: req.params.user
+    }, function (findUserErr, user) {
+        if (!findUserErr && user) {
+            Post.find({
+                author: user.email
+            }, function (findPostsErr, posts) {
+                if (!findPostsErr) {
+                    console.log(posts);
+                    res.render('user', {
+                        user: user,
+                        posts: posts
+                    });
+                } else {
+                    res.send(findPostsErr)
+                }
+            });
+        } else {
+            res.send('User not found');
+        }
+    })
+})
 
 app.get('/home', function (req, res) {
     if (req.session.userName && req.session.zipCode) {
@@ -107,7 +141,7 @@ app.post('/register', function (req, res) {
                 email: req.body.email,
                 password: hash,
                 zipCode: req.body.zipCode,
-            }, function (createErr, doc) {
+            }, function (createErr) {
                 if (!createErr) {
                     req.session.userName = req.body.email;
                     req.session.zipCode = req.body.zipCode;
