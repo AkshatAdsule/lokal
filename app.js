@@ -31,7 +31,8 @@ const userSchema = mongoose.Schema({
     },
     username: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     }
 });
 const User = mongoose.model('user', userSchema);
@@ -39,7 +40,6 @@ const User = mongoose.model('user', userSchema);
 const postSchema = mongoose.Schema({
     title: {
         type: String,
-        unique: true,
         required: true
     },
     body: {
@@ -109,21 +109,6 @@ app.get('/post', function (req, res) {
     }
 });
 
-app.get('/home/:postName', function (req, res) {
-    Post.findOne({
-        postLink: req.params.postName
-    }, function (err, post) {
-        if (!err && post) {
-            res.render('post', {
-                post: post,
-                zipCode: req.session.zipCode
-            })
-        } else {
-            res.redirect('/home');
-        }
-    })
-});
-
 app.get('/users/:user', function (req, res) {
     User.findOne({
         username: req.params.user,
@@ -146,6 +131,20 @@ app.get('/users/:user', function (req, res) {
         } else {
             res.send('User not found');
         }
+    })
+});
+
+app.get('/:user/:post', function (req, res) {
+    console.log(req.params.user, req.params.post);
+    Post.findOne({
+        author: req.params.user,
+        postLink: req.params.post,
+        zipCode: req.session.zipCode
+    }, function (err, post) {
+        res.render('post', {
+            post: post,
+            zipCode: req.session.zipCode
+        });
     })
 })
 
