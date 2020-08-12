@@ -32,12 +32,14 @@
             </div>
         </header>
 
+        <h1 class="feed-title"><%= user.email %></h1>
+
         <% posts.forEach(post => { %>
-        <main role="main" class="feed">
-            <h1 class="cover-heading feed-title"><%= post.title %></h1>
-            <p class="lead feed-body"><%= post.body.length >= 50 ? post.body.substring(0, 50) : post.body %> <a class="feed-postlink" href="/home/<%= post.postLink %>">read more...</a></p>
-            <a href="users/<%= post.author %>" class="feed-author"><%= post.author %></a>
-        </main>
+            <main role="main" class="feed">
+                <h2 class="cover-heading feed-title"><%= post.title %></h2>
+                <p class="lead feed-body"><%= post.body.length >= 50 ? post.body.substring(0, 50) : post.body %> <a class="feed-postlink" href="/home/<%= post.postLink %>">read more...</a></p>
+                <p class="feed-author"><%= post.author %></p>
+            </main>
         <% }) %>
 
 
