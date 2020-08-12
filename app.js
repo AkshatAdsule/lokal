@@ -18,6 +18,7 @@ const userSchema = mongoose.Schema({
     email: String,
     password: String,
     zipCode: Number
+    //TODO Add username field to protect user's emails
 });
 const User = mongoose.model('user', userSchema);
 
@@ -84,7 +85,8 @@ app.get('/home/:postName', function (req, res) {
     }, function (err, post) {
         if (!err && post) {
             res.render('post', {
-                post: post
+                post: post,
+                zipCode: req.session.zipCode
             })
         } else {
             res.redirect('/home');
@@ -94,7 +96,8 @@ app.get('/home/:postName', function (req, res) {
 
 app.get('/users/:user', function (req, res) {
     User.findOne({
-        email: req.params.user
+        email: req.params.user,
+        zipCode: req.session.zipCode
     }, function (findUserErr, user) {
         if (!findUserErr && user) {
             Post.find({
@@ -194,7 +197,7 @@ app.post('/post', function (req, res) {
             body: body,
             author: req.session.userName,
             zipCode: req.session.zipCode,
-            postLink: _.camelCase(title)
+            postLink: _.kebabCase(title)
         }, function (createErr) {
             if (!createErr) {
                 res.redirect('/home')
