@@ -37,7 +37,7 @@
         <% posts.forEach(post => { %>
             <main role="main" class="feed">
                 <h2 class="cover-heading feed-title"><%= post.title %></h2>
-                <p class="lead feed-body"><%= post.body.length >= 50 ? post.body.substring(0, 50) : post.body %> <a class="feed-postlink" href="/home/<%= post.postLink %>">read more...</a></p>
+                <p class="lead feed-body"><%= post.body.length >= 50 ? post.body.substring(0, 50) : post.body %> <a class="feed-postlink" href="/<%= user.username %>/<%= post.postLink %>">read more...</a></p>
                 <p class="feed-author"><%= post.author %></p>
             </main>
         <% }) %>

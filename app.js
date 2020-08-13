@@ -141,7 +141,6 @@ app.get('/users/:user', function (req, res) {
 });
 
 app.get('/:user/:post', function (req, res) {
-    console.log(req.params.user, req.params.post);
     Post.findOne({
         author: req.params.user,
         postLink: req.params.post,
