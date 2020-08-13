@@ -78,7 +78,6 @@ app.use(session({
 }));
 
 
-
 app.get('/', function (req, res) {
     res.render('welcome');
 });
@@ -119,19 +118,26 @@ app.get('/users/:user', function (req, res) {
                 author: user.username
             }, function (findPostsErr, posts) {
                 if (!findPostsErr) {
-                    console.log(posts);
                     res.render('user', {
                         user: user,
                         posts: posts
                     });
                 } else {
-                    res.send(findPostsErr)
+                    res.render("error", {
+                        title: 'Oops :(',
+                        description: '(Internal error: ' + findPostsErr + ')',
+                        href: '/home'
+                    });
                 }
             });
         } else {
-            res.send('User not found');
+            res.render("error", {
+                title: 'User Not Found.',
+                description: `This user is not available.`,
+                href: '/home'
+            });
         }
-    })
+    });
 });
 
 app.get('/:user/:post', function (req, res) {
@@ -145,8 +151,8 @@ app.get('/:user/:post', function (req, res) {
             post: post,
             zipCode: req.session.zipCode
         });
-    })
-})
+    });
+});
 
 app.get('/home', function (req, res) {
     if (req.session.email && req.session.zipCode) {
@@ -158,9 +164,13 @@ app.get('/home', function (req, res) {
                     posts: posts
                 });
             } else {
-                res.send('Internal Error: ' + err);
+                res.render("error", {
+                    title: 'Oops :(',
+                    description: '(Internal error: ' + err + ')',
+                    href: '/post'
+                });
             }
-        })
+        });
     } else {
         res.redirect('/');
     }
@@ -181,14 +191,21 @@ app.post('/register', function (req, res) {
                     req.session.username = req.body.username;
                     res.redirect('/home');
                 } else {
-                    res.send("Error: " + createErr);
+                    res.render("error", {
+                        title: 'Oops :(',
+                        description: '(Internal error: ' + createErr + ')',
+                        href: '/register'
+                    });
                 }
             });
         } else {
-            res.send("Error: " + hashErr);
+            res.render("error", {
+                title: 'Oops :(',
+                description: '(Internal error: ' + hashErr + ')',
+                href: '/register'
+            });
         }
-    })
-
+    });
 });
 
 app.post('/login', function (req, res) {
@@ -205,17 +222,33 @@ app.post('/login', function (req, res) {
                             req.session.username = doc.username;
                             res.redirect('/home');
                         } else {
-                            res.send('Invalid email/password combo');
+                            res.render("error", {
+                                title: 'Incorrect email/password combo',
+                                description: `Your email and/or password is incorrect`,
+                                href: '/login'
+                            });
                         }
                     } else {
-                        res.send('Internal error: ' + compareErr);
+                        res.render("error", {
+                            title: 'Oops :(',
+                            description: '(Internal error: ' + compareErr + ')',
+                            href: '/login'
+                        });
                     }
                 })
             } else {
-                res.send('Invalid email');
+                res.render("error", {
+                    title: 'Invalid email',
+                    description: `This email does not exist`,
+                    href: '/login'
+                });
             }
         } else {
-            res.send('Internal error: ' + findErr)
+            res.render("error", {
+                title: 'Oops :(',
+                description: '(Internal error: ' + findErr + ')',
+                href: '/login'
+            });
         }
     });
 });
@@ -234,12 +267,22 @@ app.post('/post', function (req, res) {
             if (!createErr) {
                 res.redirect('/home')
             } else {
-                res.send("Internal error:" + createErr);
+                res.render("error", {
+                    title: 'Oops :(',
+                    description: '(Internal error: ' + createErr + ')',
+                    href: '/post'
+                });
             }
-        })
+        });
     }
-})
-
-app.listen(process.env.PORT || 7000, function () {
-    console.log('app is running on 7000.');
 });
+
+app.use(function (req, res, next) {
+    res.status(404).render("error", {
+        title: '404',
+        description: 'The page you are trying to see is not avaliable',
+        href: '/'
+    });
+});
+
+app.listen(process.env.PORT || 7000, function () {});

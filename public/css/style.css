@@ -174,3 +174,18 @@ body {
   color: gray;
   text-decoration: underline;
 }
+
+/* error */
+
+.error-title {
+  font-size: 50px;
+  margin-bottom: 50px;
+}
+
+.error-description {
+  font-size: 20px;
+}
+
+.error-href {
+  font-size: 20px;
+}
