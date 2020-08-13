@@ -1,1 +1,7 @@
-TODO add error handeling on user creation and post creation
+TODO add error handeling on user creation and post creation:
+    create error ejs page, with message parameter.
+    on error, render that page with error message
+
+TODO add custom 404, 500, and other error pages. 
+    create custom error code page, with error code parameter.
+    on error render that page with error code
