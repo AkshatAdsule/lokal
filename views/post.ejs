@@ -35,6 +35,9 @@
         <main role="main" class="feed">
             <h1 class="cover-heading feed-title"><%= post.title %></h1>
             <p class="lead feed-body"><%= post.body %></p>
+            <% if (post.imageSrc) { %>
+                <img class="feed-image" src="<%=post.imageSrc %>" alt="Post image">
+            <% } %>
             <p class="feed-author"><%= post.author %></p>
         </main>
 
