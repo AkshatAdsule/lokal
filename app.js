@@ -57,7 +57,8 @@ const postSchema = mongoose.Schema({
     postLink: {
         type: String,
         required: true
-    }
+    },
+    imageSrc: String
 });
 const Post = mongoose.model('post', postSchema);
 
@@ -255,13 +256,15 @@ app.post('/login', function (req, res) {
 app.post('/post', function (req, res) {
     let title = req.body.title;
     let body = req.body.body;
+    let image = req.body.image;
     if (title && body && req.session.email && req.session.zipCode) {
         Post.create({
             title: title,
             body: body,
             author: req.session.username,
             zipCode: req.session.zipCode,
-            postLink: _.kebabCase(title)
+            postLink: _.kebabCase(title),
+            imageSrc: image
         }, function (createErr) {
             if (!createErr) {
                 res.redirect('/home')
