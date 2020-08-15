@@ -41,12 +41,19 @@
                     <br>
                     <textarea class="form-control" rows="5" name="body" placeholder="Body of post"></textarea>
                     <br>
+                    <input class="form-control" type="url" name="image" id="image" placeholder="(Optional) Image Link">
+                    <br>
                     <button type="submit" class="btn btn-lg btn-dark">Post</button>
                 </form>
+                <div>
+                    <img id="img-preview" src="" alt="preview of image">
+                </div>
             </div>
             <a href="feed" style="font-size: medium;">Want to see others' posts?</a>
         </main>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/post_image_utils.js"></script>
 </body>
 
 </html>
