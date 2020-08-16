@@ -3,16 +3,7 @@
 
 <body class="text-center">
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-        <header class="masthead mb-auto">
-            <div class="inner">
-                <h3 class="masthead-brand logo-text">lokal</h3>
-                <nav class="nav nav-masthead justify-content-center">
-                    <a class="nav-link" href="/home">Home</a>
-                    <a class="nav-link" href="/post">Post</a>
-                    <a class="nav-link" href="/logout">Logout</a>
-                </nav>
-            </div>
-        </header>
+        <%- include('partials/navbar_loggedin') -%>
 
         <h1 class="feed-title"><%= user.username %></h1>
 
@@ -20,6 +11,9 @@
             <main role="main" class="feed">
                 <h2 class="cover-heading feed-title"><%= post.title %></h2>
                 <p class="lead feed-body"><%= post.body.length >= 50 ? post.body.substring(0, 50) : post.body %> <a class="feed-postlink" href="/<%= user.username %>/<%= post.postLink %>">read more...</a></p>
+                <% if (post.imageSrc) { %>
+                    <img class="feed-image" src="<%=post.imageSrc %>" alt="Post image">
+                <% } %>
                 <p class="feed-author"><%= post.author %></p>
             </main>
         <% }) %>

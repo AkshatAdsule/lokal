@@ -2,16 +2,8 @@
 
 <body class="text-center">
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-        <header class="masthead mb-auto">
-            <div class="inner">
-                <h3 class="masthead-brand logo-text">lokal</h3>
-                <nav class="nav nav-masthead justify-content-center">
-                    <a class="nav-link active" href="/home">Home</a>
-                    <a class="nav-link" href="/post">Post</a>
-                    <a class="nav-link" href="/logout">Logout</a>
-                </nav>
-            </div>
-        </header>
+
+        <%- include('partials/navbar_loggedin') -%>
 
         <main role="main" class="feed">
             <h1 class="cover-heading feed-title"><%= post.title %></h1>
@@ -23,6 +15,7 @@
         </main>
 
         <%- include('partials/footer') -%> 
+        
     </div>
 </body>
 

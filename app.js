@@ -235,7 +235,7 @@ app.post('/login', function (req, res) {
                             href: '/login'
                         });
                     }
-                })
+                });
             } else {
                 res.render("error", {
                     title: 'Invalid email',
@@ -279,7 +279,7 @@ app.post('/post', function (req, res) {
     }
 });
 
-app.use(function (req, res, next) {
+app.use(function (req, res) {
     res.status(404).render("error", {
         title: '404',
         description: 'The page you are trying to see is not avaliable',
@@ -287,4 +287,4 @@ app.use(function (req, res, next) {
     });
 });
 
-app.listen(process.env.PORT || 7000, function () {});
+app.listen(process.env.PORT || 7000);

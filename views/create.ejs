@@ -1,17 +1,8 @@
 <%- include('partials/header', {title: 'New Post'}); %>
 
 <body class="text-center">
-    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-        <header class="masthead mb-auto">
-            <div class="inner">
-                <h3 class="masthead-brand logo-text">lokal</h3>
-                <nav class="nav nav-masthead justify-content-center">
-                    <a class="nav-link" href="/home">Home</a>
-                    <a class="nav-link active" href="/post">Post</a>
-                    <a class="nav-link" href="/logout">Logout</a>
-                </nav>
-            </div>
-        </header>
+
+    <%- include('partials/navbar_loggedin') -%>
 
         <main role="main" class="inner-cover">
             <div class="form lead">
@@ -30,7 +21,6 @@
                     <img id="img-preview" src="" alt="preview of image">
                 </div>
             </div>
-            <a href="feed" style="font-size: medium;">Want to see others' posts?</a>
         </main>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
