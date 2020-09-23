@@ -1,18 +1,17 @@
 {
   "name": "lokal",
-  "version": "0.0.1",
+  "version": "1.2.1",
   "description": "A location based social media",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/akshatadsule/lokal.git"
   },
   "author": "AkshatAdsule",
-  "license": "ISC",
+  "license": "Mozilla Public License Version 2.0",
   "bugs": {
     "url": "https://github.com/akshatadsule/lokal/issues"
   },
