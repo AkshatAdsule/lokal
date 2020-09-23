@@ -1,12 +1,11 @@
 <%- include('partials/header', {title: 'New Post'}); %>
 
 <body class="text-center">
-
-    <%- include('partials/navbar_loggedin') -%>
-
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <%- include('partials/navbar_loggedin') -%>
         <main role="main" class="inner-cover">
             <div class="form lead">
-                <form action="/post" method="POST">
+                <form action="/post" class="form" method="POST">
                     <h3 class="form-heading lead">New Post</h3><br>
                     <br>
                     <input class="form-control" type="text" name="title" id="title" placeholder="Title of post">
