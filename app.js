@@ -79,15 +79,15 @@ app.use(session({
 }));
 
 
-app.get('/', function (req, res) {
+app.get('/', function (_, res) {
     res.render('welcome');
 });
 
-app.get('/register', function (req, res) {
+app.get('/register', function (_, res) {
     res.render('register');
 });
 
-app.get('/login', function (req, res) {
+app.get('/login', function (_, res) {
     res.render('login')
 });
 
@@ -146,7 +146,7 @@ app.get('/:user/:post', function (req, res) {
         author: req.params.user,
         postLink: req.params.post,
         zipCode: req.session.zipCode
-    }, function (err, post) {
+    }, function (_, post) {
         res.render('post', {
             post: post,
             zipCode: req.session.zipCode
@@ -279,7 +279,7 @@ app.post('/post', function (req, res) {
     }
 });
 
-app.use(function (req, res) {
+app.use(function (_, rs) {
     res.status(404).render("error", {
         title: '404',
         description: 'The page you are trying to see is not avaliable',
