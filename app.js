@@ -15,8 +15,6 @@ const limiter = new RateLimit({
   max: 60
 });
 
-app.use(limiter);
-
 mongoose.connect(process.env.ATLAS_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -85,7 +83,7 @@ app.use(session({
         mongooseConnection: mongoose.connection
     })
 }));
-
+app.use(limiter);
 
 app.get('/', function (_, res) {
     res.render('welcome');

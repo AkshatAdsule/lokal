@@ -1,7 +1,7 @@
 {
   "name": "lokal",
   "version": "1.2.1",
-  "description": "A location based social media",
+  "description": "Location based social media",
   "main": "app.js",
   "scripts": {
     "start": "node app.js"
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/akshatadsule/lokal.git"
   },
   "author": "AkshatAdsule",
-  "license": "MPL",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/akshatadsule/lokal/issues"
   },
