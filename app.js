@@ -9,6 +9,12 @@ const cookieParser = require('cookie-parser')
 const _ = require('lodash');
 const MongoStore = require('connect-mongo')(session);
 
+const RateLimit = require('express-rate-limit');
+const limiter = new RateLimit({
+  windowMs: 1*60*1000, // 1 minute
+  max: 60
+});
+
 mongoose.connect(process.env.ATLAS_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
