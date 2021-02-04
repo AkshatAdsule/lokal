@@ -15,6 +15,8 @@ const limiter = new RateLimit({
   max: 60
 });
 
+app.use(limiter);
+
 mongoose.connect(process.env.ATLAS_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -285,7 +287,7 @@ app.post('/post', function (req, res) {
     }
 });
 
-app.use(function (_, rs) {
+app.use(function (_, res) {
     res.status(404).render("error", {
         title: '404',
         description: 'The page you are trying to see is not avaliable',
